@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class GetHealthCheckController
 {
-
     public function __construct(private readonly RandomNumberGenerator $generator)
     {
     }
