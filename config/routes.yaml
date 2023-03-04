@@ -2,3 +2,8 @@ get_health-check:
     path: /health-check
     controller: App\Controller\HealthCheck\GetHealthCheckController
     methods:  [GET]
+
+get_user_pins:
+    path: /player
+    controller: App\Controller\Player\PostPlayerController
+    methods:  [PUT]

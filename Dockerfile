@@ -47,5 +47,3 @@ RUN apk add symfony-cli
 RUN mkdir -p /opt/home
 RUN chmod 777 /opt/home
 ENV HOME /opt/home
-
-apps/mooc/backend/src/Controller/CoursesCounter/CoursesCounterGetController.php
