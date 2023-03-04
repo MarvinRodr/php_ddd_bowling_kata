@@ -2,23 +2,11 @@
 
 namespace App\Tests\Features\HealCheck;
 
+use App\Tests\Features\FeatureTestCase;
 use GuzzleHttp\Exception\GuzzleException;
-use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Client;
 
-final class GetHealthCheckControllerTest extends TestCase
+final class GetHealthCheckControllerTest extends FeatureTestCase
 {
-    private Client|null $client;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->client = new Client([
-            'base_uri' => 'http://localhost:8040',  // <-- base_uri instead of base_url
-        ]);
-    }
-
     public function test_api_status_should_be_ok(): void
     {
         try {
