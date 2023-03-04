@@ -1,0 +1,4 @@
+get_health-check:
+    path: /health-check
+    controller: App\Controller\HealthCheck\GetHealthCheckController
+    methods:  [GET]

@@ -25,7 +25,7 @@ services:
     container_name: bowling_kata_pop-backend_php
     user: "${UID}:${GID}"
     build:
-      context: ./app
+      context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     ports:
