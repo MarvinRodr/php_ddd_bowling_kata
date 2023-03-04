@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 abstract class FeatureTestCase extends TestCase
 {
-
     protected Client $client;
 
     protected function setUp(): void

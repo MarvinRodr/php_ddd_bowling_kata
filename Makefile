@@ -8,6 +8,9 @@ reload: composer-env-file
 lint:
 	docker exec -u root bowling_kata_pop-backend_php ./vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes --dry-run
 
+fixer:
+	docker exec -u root bowling_kata_pop-backend_php ./vendor/bin/php-cs-fixer fix --allow-risky=yes
+
 # 🐳 Docker Compose
 .PHONY: start
 start: CMD=up --build -d
