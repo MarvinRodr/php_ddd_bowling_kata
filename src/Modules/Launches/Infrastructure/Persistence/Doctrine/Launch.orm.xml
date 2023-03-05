@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Modules\Launches\Domain\Launch" table="launches">
+        <id name="id" type="uuid" column="id" length="36" />
+        <many-to-one field="player" target-entity="App\Modules\Players\Domain\Player">
+            <join-column name="player_id" referenced-column-name="id" />
+        </many-to-one>
+        <embedded name="first_one" class="App\Modules\Launches\Domain\LaunchFirstOne" use-column-prefix="false" />
+        <embedded name="second_one" class="App\Modules\Launches\Domain\LaunchSecondOne" use-column-prefix="false" />
+    </entity>
+
+</doctrine-mapping>

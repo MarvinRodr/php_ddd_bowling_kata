@@ -39,6 +39,11 @@ doco start stop destroy: composer-env-file
 deps:
 	docker exec -u root bowling_kata_pop-backend_php composer install
 	docker exec -u root bowling_kata_pop-backend_php npm install
+	make database_config
+
+database_config:
+	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:database:create
+	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:migrations:migrate
 
 ping-mysql:
 	docker exec -u root bowling_kata_pop-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent

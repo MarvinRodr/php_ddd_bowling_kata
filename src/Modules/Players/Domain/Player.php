@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Modules\Players\Domain;
 
-use App\Modules\Players\Domain\ValueObjects\PlayerId;
-use App\Modules\Players\Domain\ValueObjects\PlayerName;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 
-final class Player extends AggregateRoot
+class Player extends AggregateRoot
 {
     public function __construct(
         private readonly PlayerId $id,
