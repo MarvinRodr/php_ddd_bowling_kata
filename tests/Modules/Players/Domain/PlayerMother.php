@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Modules\Players\Domain;
 
 use App\Modules\Players\Domain\Player;
-use App\Modules\Players\Domain\ValueObjects\PlayerId;
-use App\Modules\Players\Domain\ValueObjects\PlayerName;
+use App\Modules\Players\Domain\PlayerId;
+use App\Modules\Players\Domain\PlayerName;
 
 final class PlayerMother
 {

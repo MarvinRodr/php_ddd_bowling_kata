@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Modules\Players\Domain;
 
-use App\Modules\Players\Domain\ValueObjects\PlayerName;
+use App\Modules\Players\Domain\PlayerName;
 use App\Tests\Shared\Domain\WordMother;
 
 final class PlayerNameMother

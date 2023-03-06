@@ -24,3 +24,5 @@ services:
         tags: ['controller.service_arguments']
 
     App\Shared\Domain\RandomNumberGenerator: '@App\Shared\Infrastructure\PhpRandomNumberGenerator'
+    App\Modules\Players\Domain\PlayerRepository: '@App\Modules\Players\Infrastructure\Persistence\DoctrinePlayerRepository'
+    App\Modules\Launches\Domain\LaunchRepository: '@App\Modules\Launches\Infrastructure\Persistence\DoctrineLaunchRepository'

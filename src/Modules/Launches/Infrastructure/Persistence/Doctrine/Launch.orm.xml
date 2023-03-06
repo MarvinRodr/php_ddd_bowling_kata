@@ -11,6 +11,7 @@
         </many-to-one>
         <embedded name="first_one" class="App\Modules\Launches\Domain\LaunchFirstOne" use-column-prefix="false" />
         <embedded name="second_one" class="App\Modules\Launches\Domain\LaunchSecondOne" use-column-prefix="false" />
+        <embedded name="num_frame" class="App\Modules\Launches\Domain\LaunchNumFrame" use-column-prefix="false" />
     </entity>
 
 </doctrine-mapping>

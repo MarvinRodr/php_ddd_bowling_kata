@@ -8,12 +8,11 @@ use App\Modules\Players\Application\Create\PlayerCreator;
 use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
 
-final class PostPlayerController
+final class PostPlayerLaunchController
 {
     public function __construct(private readonly PlayerCreator $creator)
     {
@@ -38,7 +37,7 @@ final class PostPlayerController
 
         $this->creator->create(...array_values($requestData));
 
-        return new JsonResponse(status: Response::HTTP_CREATED);
+        return new JsonResponse([], 201);
     }
 
     private function validateRequest(array $request): ConstraintViolationListInterface

@@ -6,6 +6,7 @@ namespace App\Tests\Features\HealCheck;
 
 use App\Tests\Features\FeatureTestCase;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\HttpFoundation\Response;
 
 final class GetHealthCheckControllerTest extends FeatureTestCase
 {
@@ -22,7 +23,7 @@ final class GetHealthCheckControllerTest extends FeatureTestCase
                 $randNum = (int) $body['rand'];
             }
 
-            $this->assertEquals(200, $stausCode);
+            $this->assertEquals(Response::HTTP_OK, $stausCode);
             $this->assertEquals(1, $randNum);
         } catch (GuzzleException $e) {
             dd($e->getMessage());

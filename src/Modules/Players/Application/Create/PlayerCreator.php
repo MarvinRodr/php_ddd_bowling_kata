@@ -6,8 +6,8 @@ namespace App\Modules\Players\Application\Create;
 
 use App\Modules\Players\Domain\Player;
 use App\Modules\Players\Domain\PlayerRepository;
-use App\Modules\Players\Domain\ValueObjects\PlayerId;
-use App\Modules\Players\Domain\ValueObjects\PlayerName;
+use App\Modules\Players\Domain\PlayerId;
+use App\Modules\Players\Domain\PlayerName;
 
 final class PlayerCreator
 {

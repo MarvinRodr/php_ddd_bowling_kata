@@ -3,7 +3,8 @@ get_health-check:
     controller: App\Controller\HealthCheck\GetHealthCheckController
     methods:  [GET]
 
-get_user_pins:
+post_player:
     path: /player
     controller: App\Controller\Player\PostPlayerController
-    methods:  [PUT]
+    methods:  [POST]
+    format: application/json
