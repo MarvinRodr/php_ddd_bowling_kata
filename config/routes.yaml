@@ -5,6 +5,12 @@ get_health-check:
 
 post_player:
     path: /player
-    controller: App\Controller\Player\PostPlayerController
+    controller: App\Controller\Players\PostPlayerController
+    methods:  [POST]
+    format: application/json
+
+post_player_launch:
+    path: /player/launch
+    controller: App\Controller\Launch\PostLaunchController
     methods:  [POST]
     format: application/json

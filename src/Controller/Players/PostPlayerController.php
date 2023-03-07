@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Player;
+namespace App\Controller\Players;
 
 use App\Modules\Players\Application\Create\PlayerCreator;
-use App\Shared\Domain\ValueObject\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,11 +29,9 @@ final class PostPlayerController
                 [
                     "message" => $errors->get(0)->getMessage()
                 ],
-                400
+                Response::HTTP_BAD_REQUEST
             );
         }
-
-        $requestData['id'] = $requestData['id'] ?? Uuid::random()->value();
 
         $this->creator->create(...array_values($requestData));
 
