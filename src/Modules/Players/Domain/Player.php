@@ -5,23 +5,24 @@ declare(strict_types=1);
 namespace App\Modules\Players\Domain;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use Ramsey\Uuid\UuidInterface;
 
 class Player extends AggregateRoot
 {
     public function __construct(
-        private readonly PlayerId $id,
+        private readonly UuidInterface $id,
         private readonly PlayerName $name
     ) {
     }
 
     public static function create(
-        PlayerId $id,
+        UuidInterface $id,
         PlayerName $name
     ): self {
         return new self($id, $name);
     }
 
-    public function id(): PlayerId
+    public function id(): UuidInterface
     {
         return $this->id;
     }

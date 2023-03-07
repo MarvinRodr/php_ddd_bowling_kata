@@ -25,6 +25,6 @@ final class PlayerCreatorTest extends PlayersModuleUnitTestCase
         $player = PlayerMother::create();
         $this->shouldSave($player);
 
-        $this->creator->create($player->id()->value(), $player->name()->value());
+        $this->creator->create($player->id()->toString(), $player->name()->value());
     }
 }

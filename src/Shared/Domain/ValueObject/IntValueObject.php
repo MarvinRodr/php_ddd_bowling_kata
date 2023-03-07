@@ -15,8 +15,28 @@ abstract class IntValueObject
         return $this->value;
     }
 
-    public function isBiggerThan(IntValueObject $other): bool
+    public function isBiggerThan(int $other): bool
     {
-        return $this->value() > $other->value();
+        return $this->value() > $other;
+    }
+
+    public function isEqualTo(int $other): bool
+    {
+        return $this->value() === $other;
+    }
+
+    public function isZero(): bool
+    {
+        return $this->value() === 0;
+    }
+
+    public function isLessThan(int $other): bool
+    {
+        return $this->value() < $other;
+    }
+
+    public function isLessOrEqualThan(int $other): bool
+    {
+        return $this->isLessThan($other) || $this->isEqualTo($other);
     }
 }

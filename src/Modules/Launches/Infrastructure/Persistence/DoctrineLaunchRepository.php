@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Modules\Launches\Infrastructure\Persistence;
 
 use App\Modules\Launches\Domain\Launch;
-use App\Modules\Launches\Domain\LaunchId;
 use App\Modules\Launches\Domain\LaunchRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
+use Ramsey\Uuid\UuidInterface;
 
 final class DoctrineLaunchRepository extends DoctrineRepository implements LaunchRepository
 {
@@ -22,8 +22,8 @@ final class DoctrineLaunchRepository extends DoctrineRepository implements Launc
         $this->persist($launch);
     }
 
-    public function search(LaunchId $id): ?Launch
+    public function search(UuidInterface $id): ?Launch
     {
-        return $this->repository(Launch::class)->find($id);
+        return $this->repository(Launch::class)->find($id->toString());
     }
 }
