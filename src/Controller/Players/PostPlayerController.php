@@ -33,9 +33,9 @@ final class PostPlayerController
             );
         }
 
-        $this->creator->create(...array_values($requestData));
+        $playerResponse = $this->creator->create(...array_values($requestData));
 
-        return new JsonResponse(status: Response::HTTP_CREATED);
+        return new JsonResponse($playerResponse->toArray(), status: Response::HTTP_CREATED);
     }
 
     private function validateRequest(array $request): ConstraintViolationListInterface
