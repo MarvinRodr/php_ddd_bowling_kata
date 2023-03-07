@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Features\HealCheck;
+namespace App\Tests\Features\Players;
 
 use App\Tests\Features\FeatureTestCase;
 use GuzzleHttp\Exception\GuzzleException;
