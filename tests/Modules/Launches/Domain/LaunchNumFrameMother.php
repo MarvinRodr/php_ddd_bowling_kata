@@ -13,6 +13,6 @@ final class LaunchNumFrameMother
 
     public static function create(?int $value = null): LaunchNumFrame
     {
-        return new LaunchNumFrame($value ?? NumberMother::createRandomBetween(0,self::MAX_NUM_OF_FRAMES + 1));
+        return new LaunchNumFrame($value ?? NumberMother::createRandomBetween(0, self::MAX_NUM_OF_FRAMES + 1));
     }
 }

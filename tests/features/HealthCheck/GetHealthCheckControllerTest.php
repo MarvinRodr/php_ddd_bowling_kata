@@ -26,7 +26,7 @@ final class GetHealthCheckControllerTest extends FeatureTestCase
             $this->assertEquals(Response::HTTP_OK, $stausCode);
             $this->assertEquals(1, $randNum);
         } catch (GuzzleException $e) {
-            echo ('ERROR => ' .$e->getMessage(). PHP_EOL);
+            echo('ERROR => ' .$e->getMessage(). PHP_EOL);
         }
     }
 }

@@ -61,6 +61,6 @@ final class PostLaunchController
 
     private function formatRequest(Request $request): array
     {
-        return json_decode($request->getContent(),true);
+        return json_decode($request->getContent(), true);
     }
 }

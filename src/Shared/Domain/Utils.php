@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use ReflectionClass;
 use RuntimeException;
+
 use function Lambdish\Phunctional\filter;
 
 final class Utils
@@ -76,7 +77,7 @@ final class Utils
     public static function filesIn(string $path, string $fileType): array
     {
         return filter(
-            static fn(string $possibleModule) => strstr($possibleModule, $fileType),
+            static fn (string $possibleModule) => strstr($possibleModule, $fileType),
             scandir($path)
         );
     }

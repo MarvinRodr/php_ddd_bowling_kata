@@ -23,10 +23,10 @@ final class LaunchCreator
     /**
      * @throws \Exception
      */
-    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $num_frame): void {
-
-        $launchId = is_null($id) ? Uuid::uuid1(): Uuid::fromString($id);
-        $playerId = is_null($player_id) ? Uuid::uuid1(): Uuid::fromString($player_id);
+    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $num_frame): void
+    {
+        $launchId = is_null($id) ? Uuid::uuid1() : Uuid::fromString($id);
+        $playerId = is_null($player_id) ? Uuid::uuid1() : Uuid::fromString($player_id);
 
         $player = $this->playerRepository->findById($playerId);
 

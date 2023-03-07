@@ -13,6 +13,6 @@ final class LaunchFirstOneMother
 
     public static function create(?int $value = null): LaunchFirstOne
     {
-        return new LaunchFirstOne($value ?? NumberMother::createRandomBetween(0,self::MAX_NUM_PINS_CAN_BE_BOWLED + 1));
+        return new LaunchFirstOne($value ?? NumberMother::createRandomBetween(0, self::MAX_NUM_PINS_CAN_BE_BOWLED + 1));
     }
 }

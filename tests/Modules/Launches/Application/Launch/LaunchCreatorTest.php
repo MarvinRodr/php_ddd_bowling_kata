@@ -45,7 +45,7 @@ final class LaunchCreatorTest extends LaunchModuleUnitTestCase
                 $launch->numFrame()->value()
             );
         } catch (\Exception $e) {
-            echo ('ERROR => ' .$e->getMessage(). PHP_EOL);
+            echo('ERROR => ' .$e->getMessage(). PHP_EOL);
         }
     }
 }

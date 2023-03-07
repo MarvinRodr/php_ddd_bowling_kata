@@ -32,8 +32,7 @@ class Launch extends AggregateRoot
         LaunchFirstOne $first_one,
         LaunchSecondOne $second_one,
         LaunchNumFrame $num_frame
-    ): self
-    {
+    ): self {
         return new self($id, $player, $first_one, $second_one, $num_frame);
     }
 

@@ -16,7 +16,7 @@ final class PlayerCreator
     }
     public function create(?string $id, string $name): void
     {
-        $id = is_null($id) ? Uuid::uuid1(): Uuid::fromString($id);
+        $id = is_null($id) ? Uuid::uuid1() : Uuid::fromString($id);
 
         $this->repository->save(
             new Player(

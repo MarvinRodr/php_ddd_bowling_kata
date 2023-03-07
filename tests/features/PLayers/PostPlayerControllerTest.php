@@ -27,7 +27,7 @@ final class PostPlayerControllerTest extends FeatureTestCase
             $stausCode = $response->getStatusCode();
             $this->assertEquals(Response::HTTP_CREATED, $stausCode);
         } catch (GuzzleException $e) {
-            echo ('ERROR => ' .$e->getMessage(). PHP_EOL);
+            echo('ERROR => ' .$e->getMessage(). PHP_EOL);
         }
     }
 
@@ -47,7 +47,7 @@ final class PostPlayerControllerTest extends FeatureTestCase
         } catch (GuzzleException $e) {
             $this->assertEquals(Response::HTTP_BAD_REQUEST, $e->getCode());
         } catch (\Exception $e) {
-            echo ('ERROR => ' .$e->getMessage(). PHP_EOL);
+            echo('ERROR => ' .$e->getMessage(). PHP_EOL);
         }
     }
 }
