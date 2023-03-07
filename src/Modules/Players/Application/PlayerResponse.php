@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Players\Application;
+namespace App\Modules\Players\Application;
 
 use App\Shared\Domain\Response;
 

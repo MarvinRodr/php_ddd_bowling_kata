@@ -19,7 +19,7 @@ abstract class PlayersModuleUnitTestCase extends UnitTestCase
             ->shouldReceive('save')
             ->with($this->similarTo($player))
             ->once()
-            ->andReturnNull();
+            ->andReturn($this->similarTo($player));
     }
 
     protected function repository(): PlayerRepository|MockInterface

@@ -63,7 +63,7 @@ class Launch extends AggregateRoot
 
     private function isValidLaunch(): bool
     {
-        return (($this->firstOne()->value() + $this->secondOne()->value()) < self::MAX_NUM_PINS_CAN_BE_BOWLED)
+        return (($this->firstOne()->value() + $this->secondOne()->value()) <= self::MAX_NUM_PINS_CAN_BE_BOWLED)
             && $this->numFrame()->isLessOrEqualThan(self::MAX_NUM_OF_FRAMES)
             && !$this->numFrame()->isZero();
     }

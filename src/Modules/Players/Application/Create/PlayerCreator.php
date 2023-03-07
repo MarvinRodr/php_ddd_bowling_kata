@@ -7,7 +7,7 @@ namespace App\Modules\Players\Application\Create;
 use App\Modules\Players\Domain\Player;
 use App\Modules\Players\Domain\PlayerRepository;
 use App\Modules\Players\Domain\PlayerName;
-use App\Players\Application\PlayerResponse;
+use App\Modules\Players\Application\PlayerResponse;
 use Ramsey\Uuid\Uuid;
 
 final class PlayerCreator

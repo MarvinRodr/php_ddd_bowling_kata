@@ -10,6 +10,7 @@ use App\Modules\Launches\Domain\LaunchNumFrame;
 use App\Modules\Launches\Domain\LaunchRepository;
 use App\Modules\Launches\Domain\LaunchSecondOne;
 use App\Modules\Players\Domain\PlayerRepository;
+use Ramsey\Uuid\Lazy\LazyUuidFromString;
 use Ramsey\Uuid\Uuid;
 
 final class LaunchCreator

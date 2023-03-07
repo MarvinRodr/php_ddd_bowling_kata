@@ -27,10 +27,10 @@ abstract class LaunchModuleUnitTestCase extends UnitTestCase
 
     protected function playerRepositoryShouldFind(Player $player): void
     {
-        $this->launchRepository()
+        $this->playerRepository()
             ->shouldReceive('findById')
             ->once()
-            ->andReturn($this->similarTo($player));
+            ->andReturn($player);
     }
 
     protected function launchRepository(): LaunchRepository|MockInterface
