@@ -52,6 +52,11 @@ final class PostPlayerController
 
     private function formatRequest(Request $request): array
     {
-        return json_decode($request->getContent(), true);
+        $formattedRequest = json_decode($request->getContent(), true);
+        if (!is_array($formattedRequest)) {
+            return [];
+        }
+
+        return $formattedRequest;
     }
 }

@@ -38,7 +38,7 @@ final class PostLaunchController
             $this->creator->create(...array_values($requestData));
         } catch (\Exception $e) {
             // TODO: handle custom errors.
-            return new JsonResponse($e->getMessage(), Response::HTTP_CREATED);
+            return new JsonResponse($e->getMessage(), Response::HTTP_CONFLICT);
         }
 
         return new JsonResponse(status: Response::HTTP_CREATED);
@@ -61,6 +61,11 @@ final class PostLaunchController
 
     private function formatRequest(Request $request): array
     {
-        return json_decode($request->getContent(), true);
+        $formattedRequest = json_decode($request->getContent(), true);
+        if (!is_array($formattedRequest)) {
+            return [];
+        }
+
+        return $formattedRequest;
     }
 }
