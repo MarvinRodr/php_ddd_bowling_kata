@@ -82,6 +82,11 @@ class Launch extends AggregateRoot
             );
     }
 
+    public function totalPinsKnocked(): int
+    {
+        return $this->firstOne()->value() + $this->secondOne()->value();
+    }
+
     public static function getMaxNumPinsCanBeBowled(): int
     {
         return self::MAX_NUM_PINS_CAN_BE_BOWLED;

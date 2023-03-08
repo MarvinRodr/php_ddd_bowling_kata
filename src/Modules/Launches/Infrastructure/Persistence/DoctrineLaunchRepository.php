@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Launches\Infrastructure\Persistence;
 
 use App\Modules\Launches\Domain\Launch;
+use App\Modules\Launches\Domain\Launches;
 use App\Modules\Launches\Domain\LaunchRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use Doctrine\ORM\Exception\ORMException;
@@ -25,5 +26,17 @@ final class DoctrineLaunchRepository extends DoctrineRepository implements Launc
     public function search(UuidInterface $id): ?Launch
     {
         return $this->repository(Launch::class)->find($id->toString());
+    }
+
+    public function findByPlayerId(UuidInterface $player_id): Launches
+    {
+        return new Launches(
+            $this->repository(Launch::class)
+            ->findBy(
+                ['player_id' => $player_id->toString()],
+                ['num_frame' => 'ASC']
+            )
+            ->toArray()
+        );
     }
 }

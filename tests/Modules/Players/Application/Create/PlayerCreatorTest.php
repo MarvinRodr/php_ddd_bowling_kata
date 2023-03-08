@@ -16,7 +16,7 @@ final class PlayerCreatorTest extends PlayersModuleUnitTestCase
     {
         parent::setUp();
 
-        $this->creator = new PlayerCreator($this->repository());
+        $this->creator = new PlayerCreator($this->playerRepository());
     }
 
     /** @test */

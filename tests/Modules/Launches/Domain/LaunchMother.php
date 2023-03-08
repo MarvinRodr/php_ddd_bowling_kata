@@ -21,6 +21,8 @@ final class LaunchMother
         ?LaunchSecondOne $second_one = null,
         ?LaunchNumFrame $num_frame = null
     ): Launch {
+        $first_one = $first_one ?? LaunchFirstOneMother::create();
+        $second_one = $second_one ?? LaunchSecondOneMother::create(Launch::getMaxNumPinsCanBeBowled() - $first_one->value());
         return new Launch(
             $id ?? LaunchIdMother::create(),
             $player ?? PlayerMother::create(),
