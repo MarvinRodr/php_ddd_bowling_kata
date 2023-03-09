@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Players;
+namespace App\Controller\API\Players;
 
 use App\Modules\Players\Application\PlayerScoreResponse;
 use App\Modules\Players\Application\Score\PlayerScoreFinder;

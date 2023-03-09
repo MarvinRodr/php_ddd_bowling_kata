@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\HealthCheck;
+namespace App\Controller\API\HealthCheck;
 
 use App\Shared\Domain\RandomNumberGenerator;
 use Symfony\Component\HttpFoundation\JsonResponse;
