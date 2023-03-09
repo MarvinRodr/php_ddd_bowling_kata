@@ -28,7 +28,15 @@ final class GetPlayerScoreController
             );
         }
 
-        $score = $this->finder->find($player_id);
+        try {
+            $score = $this->finder->find($player_id);
+        } catch (\Exception $e) {
+            // TODO: handle custom errors.
+            return new JsonResponse(
+                $e->getMessage(),
+                status: Response::HTTP_CONFLICT
+            );
+        }
 
         return new JsonResponse(
             (new PlayerScoreResponse($player_id, $score))->toArray(),

@@ -8,19 +8,31 @@ use App\Modules\Launches\Application\Calc\SpareScoreCalculator;
 use App\Modules\Launches\Application\Calc\StrikeScoreCalculator;
 use App\Modules\Launches\Domain\Launch;
 use App\Modules\Launches\Domain\LaunchRepository;
+use App\Modules\Players\Domain\PlayerRepository;
 use Ramsey\Uuid\Uuid;
 
 final class PlayerScoreFinder
 {
-    public function __construct(private readonly LaunchRepository $repository)
-    {
+    public function __construct(
+        private readonly LaunchRepository $launchRepository,
+        private readonly PlayerRepository $playerRepository
+    ) {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function find(string $player_id): int
     {
-        $player_id = Uuid::fromString($player_id);
+        $playerId = Uuid::fromString($player_id);
 
-        $launches = $this->repository->findByPlayerId($player_id);
+        $player =$this->playerRepository->findById($playerId);
+
+        if (is_null($player)) {
+            throw new \Exception("Player does not exist.");
+        }
+
+        $launches = $this->launchRepository->findByPlayerId($player->id());
         $launchesCollection = $launches->getCollection();
 
         if ($launchesCollection->isEmpty()) {
