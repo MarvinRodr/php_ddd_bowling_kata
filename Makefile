@@ -25,7 +25,7 @@ stop: CMD=stop
 destroy: CMD=down
 
 .PHONY: build
-build: start deps
+build: start permissions deps
 
 rebuild: composer-env-file
 	docker-compose build --pull --force-rm --no-cache
@@ -36,6 +36,9 @@ rebuild: composer-env-file
 doco start stop destroy: composer-env-file
 	UID=${shell id -u} GID=${shell id -g} docker-compose $(CMD)
 
+permissions:
+	docker exec -it -u root bowling_kata_pop-backend_php chown -R 1000:1000 /opt/home/.npm
+
 deps:
 	docker exec -u root bowling_kata_pop-backend_php composer install
 	docker exec -u root bowling_kata_pop-backend_php npm install
@@ -43,6 +46,7 @@ deps:
 
 database_config:
 	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:database:create
+	docker exec -u root bowling_kata_pop-backend_php php bin/console make:migration
 	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:migrations:migrate
 
 ping-mysql:
