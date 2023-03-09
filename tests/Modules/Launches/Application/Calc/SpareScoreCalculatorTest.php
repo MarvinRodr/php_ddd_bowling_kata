@@ -43,7 +43,7 @@ final class SpareScoreCalculatorTest extends LaunchModuleUnitTestCase
         $this->calculator = new SpareScoreCalculator(
             launches: $launches,
             currentLaunch: $currentLaunch,
-            currentFrame: $currentFrame
+            index: $currentFrame
         );
         parent::setUp();
     }

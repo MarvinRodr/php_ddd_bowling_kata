@@ -43,7 +43,7 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
         $this->calculator = new StrikeScoreCalculator(
             launches: $launches,
             currentLaunch: $currentLaunch,
-            currentFrame: $currentFrame
+            index: $currentFrame
         );
         parent::setUp();
     }
