@@ -14,3 +14,8 @@ post_player_launch:
     controller: App\Controller\Launch\PostLaunchController
     methods:  [POST]
     format: application/json
+
+get_player_score:
+    path: /player/{player_id}/score
+    controller: App\Controller\Players\GetPlayerScoreController
+    methods:  [GET]

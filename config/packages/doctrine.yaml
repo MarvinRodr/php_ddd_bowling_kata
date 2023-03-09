@@ -13,13 +13,13 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/Modules/Players/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Modules\Players\Domain'
-                alias: App
+                alias: Players
             App\Modules\Launches\Domain:
                 is_bundle: false
                 type: xml
                 dir: '%kernel.project_dir%/src/Modules/Launches/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Modules\Launches\Domain'
-                alias: App
+                alias: Launches
 
 when@test:
     doctrine:

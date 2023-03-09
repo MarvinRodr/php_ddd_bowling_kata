@@ -9,18 +9,26 @@ use App\Shared\Domain\Response;
 final class PlayerScoreResponse implements Response
 {
     public function __construct(
-        private readonly string $id,
-        private readonly string $name
+        private readonly string $player_id,
+        private readonly int $total_score
     ) {
     }
 
-    public function id(): string
+    public function playerID(): string
     {
-        return $this->id;
+        return $this->player_id;
     }
 
-    public function name(): string
+    public function totalScore(): int
     {
-        return $this->name;
+        return $this->total_score;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'player_id' => $this->playerID(),
+            'total_score' => $this->totalScore(),
+        ];
     }
 }

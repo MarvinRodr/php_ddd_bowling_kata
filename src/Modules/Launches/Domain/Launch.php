@@ -76,7 +76,7 @@ class Launch extends AggregateRoot
     public function isSpare(): bool
     {
         return
-            $this->firstOne()->isLessThan(0)
+            $this->firstOne()->isLessThan(self::MAX_NUM_PINS_CAN_BE_BOWLED)
             && (
                 ($this->firstOne()->value() + $this->secondOne()->value()) === self::MAX_NUM_PINS_CAN_BE_BOWLED
             );

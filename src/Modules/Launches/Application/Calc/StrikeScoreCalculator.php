@@ -12,7 +12,7 @@ final class StrikeScoreCalculator
     public function __construct(
         private readonly Launches $launches,
         private readonly Launch $currentLaunch,
-        private readonly int $currentFrame
+        private readonly int $index
     ) {
     }
 
@@ -22,13 +22,13 @@ final class StrikeScoreCalculator
     public function calc(): int
     {
         // Get the next launch
-        $nextLaunch = $this->launches->getCollection()->get($this->currentFrame + 1);
+        $nextLaunch = $this->launches->getCollection()->get($this->index + 1);
 
         // If it isn`t outside the range of the array of Launches
         if ($nextLaunch instanceof Launch) {
             return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->totalPinsKnocked();
         }
 
-        return 0;
+        return $this->currentLaunch->totalPinsKnocked();
     }
 }

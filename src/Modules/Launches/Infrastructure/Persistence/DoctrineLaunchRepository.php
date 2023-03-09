@@ -33,10 +33,9 @@ final class DoctrineLaunchRepository extends DoctrineRepository implements Launc
         return new Launches(
             $this->repository(Launch::class)
             ->findBy(
-                ['player_id' => $player_id->toString()],
-                ['num_frame' => 'ASC']
+                ['player' => $player_id->toString()],
+                // ['LaunchNumFrame' => 'ASC'] ==> Problems with doctrine ORM and XML Mapping.
             )
-            ->toArray()
         );
     }
 }
