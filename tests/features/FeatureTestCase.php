@@ -16,7 +16,7 @@ abstract class FeatureTestCase extends TestCase
         parent::setUp();
 
         $this->client = new Client([
-            'base_uri' => 'http://localhost:8040',  // <-- base_uri instead of base_url
+            'base_uri' => 'http://localhost:8040/api',  // <-- base_uri instead of base_url
         ]);
     }
 }

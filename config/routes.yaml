@@ -1,21 +1,21 @@
 get_health-check:
-    path: /health-check
+    path: /api/health-check
     controller: App\Controller\HealthCheck\GetHealthCheckController
     methods:  [GET]
 
 post_player:
-    path: /player
+    path: /api/player
     controller: App\Controller\Players\PostPlayerController
     methods:  [POST]
     format: application/json
 
 post_player_launch:
-    path: /player/launch
+    path: /api/player/launch
     controller: App\Controller\Launch\PostLaunchController
     methods:  [POST]
     format: application/json
 
 get_player_score:
-    path: /player/{player_id}/score
+    path: /api/player/{player_id}/score
     controller: App\Controller\Players\GetPlayerScoreController
     methods:  [GET]
