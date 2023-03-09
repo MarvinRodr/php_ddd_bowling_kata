@@ -1,8 +1,22 @@
 {
   "dependencies": {
-    "vue": "^3.2.47",
-    "vue-loader": "^15.10.1",
-    "vue-template-compiler": "^2.7.14",
-    "@symfony/webpack-encore": "github:symfony/webpack-encore"
+    "@symfony/webpack-encore": "^4.2.0",
+    "bootstrap": "^5.2.3",
+    "core-js": "^3.29.0",
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-vue": "^9.9.0",
+    "regenerator-runtime": "^0.13.11",
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0",
+    "webpack-notifier": "^1.15.0"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress",
+    "lint": "node_modules/.bin/eslint assets/** --ignore-pattern *.scss --ignore-pattern *.gif --ignore-pattern *.png"
   }
 }

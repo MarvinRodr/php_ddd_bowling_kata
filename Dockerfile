@@ -35,9 +35,6 @@ RUN php -r "copy('https://composer.github.io/installer.sig', 'installer.sig');" 
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php'); unlink('installer.sig');"
 
-# Install node.js
-RUN apk add --update nodejs npm
-
 # Install Symfony CLI
 RUN apk add --no-cache bash
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | bash
@@ -47,3 +44,10 @@ RUN apk add symfony-cli
 RUN mkdir -p /opt/home
 RUN chmod 777 /opt/home
 ENV HOME /opt/home
+
+# Install node.js
+RUN apk add --update nodejs npm
+RUN npm -g config set user root
+
+RUN chown -R www-data:www-data /app
+RUN chown -R www-data:www-data /opt/home
