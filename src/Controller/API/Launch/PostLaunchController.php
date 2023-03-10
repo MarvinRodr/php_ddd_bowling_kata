@@ -35,13 +35,13 @@ final class PostLaunchController
         }
 
         try {
-            $this->creator->create(...array_values($requestData));
+            $launchResponse = $this->creator->create(...array_values($requestData));
         } catch (\Exception $e) {
             // TODO: handle custom errors.
             return new JsonResponse($e->getMessage(), Response::HTTP_CONFLICT);
         }
 
-        return new JsonResponse(status: Response::HTTP_CREATED);
+        return new JsonResponse($launchResponse->toArray(), Response::HTTP_CREATED);
     }
 
     private function validateRequest(array $request): ConstraintViolationListInterface

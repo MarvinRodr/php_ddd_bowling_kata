@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Modules\Launches\Application\Create;
 
+use App\Modules\Launches\Application\LaunchResponse;
 use App\Modules\Launches\Domain\Launch;
 use App\Modules\Launches\Domain\LaunchFirstOne;
 use App\Modules\Launches\Domain\LaunchNumFrame;
@@ -23,7 +24,7 @@ final class LaunchCreator
     /**
      * @throws \Exception
      */
-    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $num_frame): void
+    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $num_frame): LaunchResponse
     {
         $launchId = is_null($id) ? Uuid::uuid1() : Uuid::fromString($id);
         $playerId = is_null($player_id) ? Uuid::uuid1() : Uuid::fromString($player_id);
@@ -35,14 +36,16 @@ final class LaunchCreator
             throw new \Exception("Player does not exist.");
         }
 
-        $this->launchRepository->save(
-            new Launch(
-                id: $launchId,
-                player: $player,
-                first_one: new LaunchFirstOne($first_one),
-                second_one: new LaunchSecondOne($second_one),
-                num_frame: new LaunchNumFrame($num_frame)
-            )
+        $launch = new Launch(
+            id: $launchId,
+            player: $player,
+            first_one: new LaunchFirstOne($first_one),
+            second_one: new LaunchSecondOne($second_one),
+            num_frame: new LaunchNumFrame($num_frame)
         );
+
+        $this->launchRepository->save($launch);
+
+        return new LaunchResponse($launch);
     }
 }
