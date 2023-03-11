@@ -43,6 +43,7 @@ deps:
 	docker exec -u root bowling_kata_pop-backend_php composer install
 	docker exec -u root bowling_kata_pop-backend_php npm install
 	make database_config
+	make npm-build
 
 database_config:
 	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:database:create
@@ -59,5 +60,8 @@ composer-up:
 test:
 	docker exec -u root bowling_kata_pop-backend_php ./vendor/bin/phpunit
 
-watch:
+npm-watch:
 	docker exec -u root bowling_kata_pop-backend_php npm run watch
+
+npm-build:
+	docker exec -u root bowling_kata_pop-backend_php npm run build
