@@ -145,4 +145,28 @@ src/Modules/Launches/Application/Calc/
 └── StrikeScoreCalculator.php
 ```
 
+:vuejs: Frontend Solution Using VUE
+---
+Components
+```sh
+assets/components/
+├── BowlingLane.vue
+└── Players
+    └── CreatePlayerFormModal.vue
+```
+
+Pages
+```sh
+assets/pages/
+└── home
+└── Home.vue
+```
+
+
+
+
+
+
+
+
 
