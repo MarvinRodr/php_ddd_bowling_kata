@@ -33,7 +33,9 @@ final class PlayerScoreFinder
         }
 
         $launches = $this->launchRepository->findByPlayerId($player->id());
-        $launchesCollection = $launches->getCollection();
+        $launchesCollection = $launches->getCollection()->sortBy(
+            fn (Launch $launch) => $launch->numFrame()->value() // Because of problem with "orderBy" in DoctrineLaunchRepository
+        );
 
         if ($launchesCollection->isEmpty()) {
             return 0;
