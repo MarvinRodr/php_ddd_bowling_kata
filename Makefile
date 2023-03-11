@@ -47,7 +47,6 @@ deps:
 
 database_config:
 	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:database:create
-	docker exec -u root bowling_kata_pop-backend_php php bin/console make:migration
 	docker exec -u root bowling_kata_pop-backend_php php bin/console doctrine:migrations:migrate
 
 ping-mysql:
