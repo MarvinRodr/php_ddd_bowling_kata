@@ -11,7 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 class Launch extends AggregateRoot
 {
     private const MAX_NUM_PINS_CAN_BE_BOWLED = 10;
-    private const MAX_NUM_OF_FRAMES = 10;
+    private const MAX_NUM_OF_FRAMES = 12;
 
     public function __construct(
         private readonly UuidInterface $id,
@@ -20,8 +20,11 @@ class Launch extends AggregateRoot
         private readonly LaunchSecondOne $second_one,
         private readonly LaunchNumFrame $num_frame
     ) {
-        // TODO: custom exceptions.
-        if (!$this->isValidLaunch()) {
+        if (
+            ($this->isBonusLaunch() && !$this->isValidBonusLaunch())
+            || (!$this->isBonusLaunch() && !$this->isValidLaunch())
+        ) {
+            // TODO: custom exceptions.
             throw new \DomainException();
         }
     }
@@ -80,6 +83,18 @@ class Launch extends AggregateRoot
             && (
                 ($this->firstOne()->value() + $this->secondOne()->value()) === self::MAX_NUM_PINS_CAN_BE_BOWLED
             );
+    }
+
+    private function isBonusLaunch(): bool
+    {
+        return $this->numFrame()->value() === self::MAX_NUM_OF_FRAMES;
+    }
+
+    private function isValidBonusLaunch(): bool
+    {
+        return ($this->totalPinsKnocked() <= (self::MAX_NUM_PINS_CAN_BE_BOWLED * 2))
+            && $this->numFrame()->isEqualTo(self::MAX_NUM_OF_FRAMES)
+        ;
     }
 
     public function totalPinsKnocked(): int

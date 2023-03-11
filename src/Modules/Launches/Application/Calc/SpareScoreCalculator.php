@@ -23,7 +23,7 @@ final class SpareScoreCalculator
 
         // If it isn`t outside the range of the array of Launches
         if ($nextLaunch instanceof Launch) {
-            return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->firstOne()->value();
+            return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->totalPinsKnocked();
         }
 
         return $this->currentLaunch->totalPinsKnocked();

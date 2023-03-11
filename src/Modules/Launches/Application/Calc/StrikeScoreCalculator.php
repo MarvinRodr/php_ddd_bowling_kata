@@ -21,14 +21,23 @@ final class StrikeScoreCalculator
      */
     public function calc(): int
     {
+        $score = $this->currentLaunch->totalPinsKnocked();
+
         // Get the next launch
         $nextLaunch = $this->launches->getCollection()->get($this->index + 1);
 
+        // Get the next + 1 launch
+        $nextOfNextLaunch = $this->launches->getCollection()->get($this->index + 2);
+
         // If it isn`t outside the range of the array of Launches
         if ($nextLaunch instanceof Launch) {
-            return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->totalPinsKnocked();
+            $score += $nextLaunch->totalPinsKnocked();
         }
 
-        return $this->currentLaunch->totalPinsKnocked();
+        if ($nextOfNextLaunch instanceof Launch) {
+            $score += $nextOfNextLaunch->totalPinsKnocked();
+        }
+
+        return $score;
     }
 }
