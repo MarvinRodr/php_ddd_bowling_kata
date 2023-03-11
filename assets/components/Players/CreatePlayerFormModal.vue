@@ -1,4 +1,8 @@
 <template>
+    <VueLoading
+        v-model:active="isLoading"
+        :is-full-page="fullPage"
+    />
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#playerCreateModal" data-bs-whatever="@mdo">Create a player!</button>
     <div class="modal fade" id="playerCreateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -23,18 +27,25 @@
 </template>
 
 <script>
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
+
 export default {
     name: "CreatePlayerFormModal",
+    components: {VueLoading},
     data() {
         return {
             newPlayer: {
                 id: null,
                 name: ''
-            }
+            },
+            isLoading: false,
+            fullPage: true,
         }
     },
     methods: {
         create() {
+            this.isLoading = true
             if (this.newPlayer.name === null && this.newPlayer.name === '') {
                 return;
             }
@@ -53,6 +64,7 @@ export default {
             .then((r) => {
                 this.newPlayer = r
                 this.addPlayer()
+                this.isLoading = false
             })
 
         },

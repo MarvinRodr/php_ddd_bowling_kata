@@ -1,9 +1,15 @@
 <template>
+
+    <VueLoading
+        v-model:active="isLoading"
+         :is-full-page="fullPage"
+    />
+
     <div class="row">
         <div class="col-md-2">
             <strong>Player:</strong> {{player.name}}
             <template v-if="launches.length < maxNumFrame">
-                <button type="button" @click="launch" class="btn btn-success">Launch with luck!</button>
+                <button type="button" @click="launch" class="btn btn-success">Lucky launch!</button>
                 <button type="button" @click="launch('strike')" class="btn btn-danger">Make a strike!</button>
                 <button type="button" @click="launch('spare')" class="btn btn-warning">Make a spare!</button>
             </template>
@@ -28,8 +34,12 @@
 </template>
 
 <script>
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
+
 export default {
     name: "BowlingLane",
+    components: {VueLoading},
     props: {
         player: Object,
     },
@@ -38,15 +48,22 @@ export default {
             launches: [],
             totalScore: 0,
             maxNumFrame: 12,
+            isLoading: false,
+            fullPage: true,
         }
     },
     methods: {
         getScore() {
+            this.isLoading = true
             fetch(`http://localhost:8040/api/player/${this.player.id}/score`)
             .then((r) => r.json())
-            .then((r) => this.totalScore = r.total_score)
+            .then((r) => {
+                this.totalScore = r.total_score
+                this.isLoading = false
+            })
         },
         launch(type) {
+            this.isLoading = true
             let payload = null;
             switch (type) {
                 case 'strike':
@@ -80,6 +97,7 @@ export default {
             .then((r) => {
                 this.launches.push(r)
                 this.getScore()
+                this.isLoading = false
             })
         },
         payload(firstOne, secondOne) {
