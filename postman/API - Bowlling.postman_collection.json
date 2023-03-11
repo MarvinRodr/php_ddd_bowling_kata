@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "71a527c2-3d5c-47b5-ba70-066a9551fa80",
+		"name": "API - Bowlling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12841600"
+	},
+	"item": [
+		{
+			"name": "Launches",
+			"item": [
+				{
+					"name": "Launch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/launch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"launch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Launch 201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 4,\r\n    \"second_one\": 3,\r\n    \"num_frame\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player/launch",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"launch"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"6f8f9cba-bf91-11ed-8f65-0242ac180003\",\n    \"player_name\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\n    \"first_one\": 10,\n    \"second_one\": 0,\n    \"num_frame\": 1,\n    \"is_strike\": true,\n    \"is_spare\": false\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Players",
+			"item": [
+				{
+					"name": "Create Player",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"Marvin Test From Postman\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Player 201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"name\": \"Marvin Test From Postman\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player"
+									]
+								}
+							},
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"0f85228c-c012-11ed-9010-0242ac180003\",\n    \"name\": \"Marvin Test From Postman\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Score",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/player/{{player_id}}/score",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"{{player_id}}",
+								"score"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Score",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/player/{{player_id}}/score",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"{{player_id}}",
+										"score"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"player_id\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\r\n    \"total_score\": 45\r\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
