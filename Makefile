@@ -58,3 +58,6 @@ composer-up:
 .PHONY: test
 test:
 	docker exec -u root bowling_kata_pop-backend_php ./vendor/bin/phpunit
+
+watch:
+	docker exec -u root bowling_kata_pop-backend_php npm run watch
