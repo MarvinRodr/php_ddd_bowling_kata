@@ -15,7 +15,7 @@ final class PostPlayerControllerTest extends FeatureTestCase
         try {
             $response = $this->client->request(
                 'POST',
-                '/player',
+                '/api/player',
                 [
                     'json' => [
                         'id' => null,
@@ -36,7 +36,7 @@ final class PostPlayerControllerTest extends FeatureTestCase
         try {
             $this->client->request(
                 'POST',
-                '/player',
+                '/api/player',
                 [
                     'json' => [
                         'id' => null,

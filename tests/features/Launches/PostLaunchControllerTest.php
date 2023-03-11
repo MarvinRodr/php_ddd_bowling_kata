@@ -16,7 +16,7 @@ final class PostLaunchControllerTest extends FeatureTestCase
         try {
             $response = $this->client->request(
                 'POST',
-                '/player/launch',
+                '/api/player/launch',
                 [
                     'json' => [
                         "id" => null,
@@ -40,7 +40,7 @@ final class PostLaunchControllerTest extends FeatureTestCase
         try {
             $this->client->request(
                 'POST',
-                '/player/launch',
+                '/api/player/launch',
                 [
                     'json' => [
                         'id' => null,
@@ -68,7 +68,7 @@ final class PostLaunchControllerTest extends FeatureTestCase
         try {
             $response = $this->client->request(
                 'POST',
-                '/player',
+                '/api/player',
                 [
                     'json' => [
                         'id' => null,

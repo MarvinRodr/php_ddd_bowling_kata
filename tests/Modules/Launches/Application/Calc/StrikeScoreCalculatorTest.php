@@ -28,13 +28,19 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
             2,
             collect(
                 [
-                    // Spare
+                    // Strike
                     $currentLaunch,
                     // Normal launch
                     LaunchMother::create(
                         first_one: new LaunchFirstOne(5),
                         second_one: new LaunchSecondOne(2),
                         num_frame: new LaunchNumFrame(2)
+                    ),
+                    // Normal launch
+                    LaunchMother::create(
+                        first_one: new LaunchFirstOne(8),
+                        second_one: new LaunchSecondOne(1),
+                        num_frame: new LaunchNumFrame(3)
                     ),
                 ]
             )->all()
@@ -55,11 +61,11 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
      * the frame total pins knocked plus the bonus.
      *
      * Current example:
-     * (10+0 (Strike!) + (5 + 2)) = 17 points (10 + bonus of 7)..
+     * (10+0 (Strike!) + (5 + 2) + (8 + 1)) = 26 points (10 + bonus of 16)..
      */
     public function it_should_calc_with_an_strike_successfully(): void
     {
-        $expectedScore = 17;
+        $expectedScore = 26;
         $score = $this->calculator->calc();
 
         $this->assertEquals($expectedScore, $score);

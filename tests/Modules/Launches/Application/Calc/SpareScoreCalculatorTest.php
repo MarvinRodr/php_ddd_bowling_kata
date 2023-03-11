@@ -55,11 +55,11 @@ final class SpareScoreCalculatorTest extends LaunchModuleUnitTestCase
      * the frame total pins knocked plus the bonus.
      *
      * Current example:
-     * (4+6 (Spare!) + 5(firstLaunch of the next one)) = 15 points (10 + bonus of 5).
+     * (4+6 (Spare!) + (5 + 2) (firstLaunch of the next one)) = 17 points (10 + bonus of 7).
      */
     public function it_should_calc_with_an_spare_successfully(): void
     {
-        $expectedScore = 15;
+        $expectedScore = 17;
         $score = $this->calculator->calc();
 
         $this->assertEquals($expectedScore, $score);

@@ -13,7 +13,7 @@ final class GetHealthCheckControllerTest extends FeatureTestCase
     public function test_api_status_should_be_ok(): void
     {
         try {
-            $response = $this->client->request('GET', '/health-check');
+            $response = $this->client->request('GET', '/api/health-check');
 
             $stausCode = $response->getStatusCode();
             $body = json_decode($response->getBody()->getContents(), true);
