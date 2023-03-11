@@ -6,6 +6,7 @@
 2. Open your browser: [localhost](http://localhost:8040/).
 3. Run tests: ```make test```
 4. If necessary feel free to use the [Makefile](Makefile).
+5. Feel free to try postman [collection](postman/API%20-%20Bowlling.postman_collection.json) and [environment](postman/bowlling_kaya_pop.postman_environment.json) 
 
 
 :door: Controllers
