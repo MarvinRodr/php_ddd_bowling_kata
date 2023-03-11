@@ -145,7 +145,7 @@ src/Modules/Launches/Application/Calc/
 └── StrikeScoreCalculator.php
 ```
 
-:vuejs: Frontend Solution Using VUE
+Frontend Solution Using VUE
 ---
 Components
 ```sh
