@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 0,\r\n    \"third_one\": 0,\r\n    \"num_frame\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,7 +73,75 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": \"6f8f9cba-bf91-11ed-8f65-0242ac180003\",\n    \"player_name\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\n    \"first_one\": 10,\n    \"second_one\": 0,\n    \"num_frame\": 1,\n    \"is_strike\": true,\n    \"is_spare\": false\n}"
+							"body": "{\n    \"id\": \"bbe19a18-c0dc-11ed-bd8f-0242ac180003\",\n    \"player_name\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\n    \"first_one\": 10,\n    \"second_one\": 0,\n    \"third_one\": 0,\n    \"num_frame\": 1,\n    \"is_strike\": true,\n    \"is_spare\": false,\n    \"is_bonus\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Bonus Launch",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 10,\r\n    \"third_one\": 10,\r\n    \"num_frame\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/launch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"launch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Launch 201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 10,\r\n    \"third_one\": 10,\r\n    \"num_frame\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player/launch",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"launch"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"ec76bd02-c02d-11ed-8285-0242ac180003\",\n    \"player_id\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\n    \"first_one\": 1,\n    \"second_one\": 9,\n    \"third_one\": 8,\n    \"num_frame\": 10,\n    \"is_strike\": false,\n    \"is_spare\": true,\n    \"is_bonus\": true\n}"
 						}
 					]
 				}

@@ -105,6 +105,7 @@ src/Modules/Launches/Domain
 ├── LaunchNumFrame.php
 ├── LaunchRepository.php
 ├── LaunchSecondOne.php
+├── LaunchThirdOne.php
 └── Launches.php
 ```
 As we can see we have the 2 possible launches in the Launch Model. 
@@ -115,13 +116,14 @@ This allows us to control the behaviour of each launch box. Defining the require
 class Launch extends AggregateRoot
 {
     private const MAX_NUM_PINS_CAN_BE_BOWLED = 10;
-    private const MAX_NUM_OF_FRAMES = 12;
+    private const MAX_NUM_OF_FRAMES = 10;
 
     public function __construct(
         private readonly UuidInterface $id,
         private readonly Player $player,
         private readonly LaunchFirstOne $first_one,
         private readonly LaunchSecondOne $second_one,
+        private readonly LaunchThirdOne $third_one,
         private readonly LaunchNumFrame $num_frame
     ) {
         if (
@@ -160,7 +162,7 @@ Pages
 ```sh
 assets/pages/
 └── home
-└── Home.vue
+    └── Home.vue
 ```
 
 
