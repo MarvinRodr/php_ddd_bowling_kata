@@ -11,13 +11,14 @@ use Ramsey\Uuid\UuidInterface;
 class Launch extends AggregateRoot
 {
     private const MAX_NUM_PINS_CAN_BE_BOWLED = 10;
-    private const MAX_NUM_OF_FRAMES = 12;
+    private const MAX_NUM_OF_FRAMES = 10;
 
     public function __construct(
         private readonly UuidInterface $id,
         private readonly Player $player,
         private readonly LaunchFirstOne $first_one,
         private readonly LaunchSecondOne $second_one,
+        private readonly LaunchThirdOne $third_one,
         private readonly LaunchNumFrame $num_frame
     ) {
         if (
@@ -34,9 +35,10 @@ class Launch extends AggregateRoot
         Player $player,
         LaunchFirstOne $first_one,
         LaunchSecondOne $second_one,
+        LaunchThirdOne $third_one,
         LaunchNumFrame $num_frame
     ): self {
-        return new self($id, $player, $first_one, $second_one, $num_frame);
+        return new self($id, $player, $first_one, $second_one, $third_one, $num_frame);
     }
 
     public function id(): UuidInterface
@@ -57,6 +59,11 @@ class Launch extends AggregateRoot
     public function secondOne(): LaunchSecondOne
     {
         return $this->second_one;
+    }
+
+    public function thirdOne(): LaunchThirdOne
+    {
+        return $this->third_one;
     }
 
     public function numFrame(): LaunchNumFrame
@@ -85,21 +92,21 @@ class Launch extends AggregateRoot
             );
     }
 
-    private function isBonusLaunch(): bool
+    public function isBonusLaunch(): bool
     {
         return $this->numFrame()->value() === self::MAX_NUM_OF_FRAMES;
     }
 
     private function isValidBonusLaunch(): bool
     {
-        return ($this->totalPinsKnocked() <= (self::MAX_NUM_PINS_CAN_BE_BOWLED * 2))
+        return ($this->totalPinsKnocked() <= (self::MAX_NUM_PINS_CAN_BE_BOWLED * 3))
             && $this->numFrame()->isEqualTo(self::MAX_NUM_OF_FRAMES)
         ;
     }
 
     public function totalPinsKnocked(): int
     {
-        return $this->firstOne()->value() + $this->secondOne()->value();
+        return $this->firstOne()->value() + $this->secondOne()->value() + $this->thirdOne()->value();
     }
 
     public static function getMaxNumPinsCanBeBowled(): int

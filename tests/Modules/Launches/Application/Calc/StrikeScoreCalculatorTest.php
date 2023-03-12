@@ -8,8 +8,10 @@ use App\Modules\Launches\Application\Calc\StrikeScoreCalculator;
 use App\Modules\Launches\Domain\LaunchFirstOne;
 use App\Modules\Launches\Domain\LaunchNumFrame;
 use App\Modules\Launches\Domain\LaunchSecondOne;
+use App\Modules\Launches\Domain\LaunchThirdOne;
 use App\Tests\Modules\Launches\Domain\LaunchesMother;
 use App\Tests\Modules\Launches\Domain\LaunchMother;
+use App\Tests\Modules\Launches\Domain\LaunchStrikeMother;
 use App\Tests\Modules\Launches\LaunchModuleUnitTestCase;
 
 final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
@@ -18,28 +20,25 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
 
     protected function setUp(): void
     {
-        $currentLaunch = LaunchMother::create(
-            first_one: new LaunchFirstOne(10),
-            second_one: new LaunchSecondOne(0),
-            num_frame: new LaunchNumFrame(1)
-        );
+        $strike = LaunchStrikeMother::create();
         $currentFrame = 0;
         $launches = LaunchesMother::create(
             2,
             collect(
                 [
-                    // Strike
-                    $currentLaunch,
+                    $strike,
                     // Normal launch
                     LaunchMother::create(
                         first_one: new LaunchFirstOne(5),
                         second_one: new LaunchSecondOne(2),
+                        third_one: new LaunchThirdOne(0),
                         num_frame: new LaunchNumFrame(2)
                     ),
                     // Normal launch
                     LaunchMother::create(
                         first_one: new LaunchFirstOne(8),
                         second_one: new LaunchSecondOne(1),
+                        third_one: new LaunchThirdOne(0),
                         num_frame: new LaunchNumFrame(3)
                     ),
                 ]
@@ -47,8 +46,8 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
         );
 
         $this->calculator = new StrikeScoreCalculator(
-            launches: $launches,
-            currentLaunch: $currentLaunch,
+            launches: $launches->getCollection(),
+            currentLaunch: $strike,
             index: $currentFrame
         );
         parent::setUp();
@@ -61,11 +60,11 @@ final class StrikeScoreCalculatorTest extends LaunchModuleUnitTestCase
      * the frame total pins knocked plus the bonus.
      *
      * Current example:
-     * (10+0 (Strike!) + (5 + 2) + (8 + 1)) = 26 points (10 + bonus of 16)..
+     * (10+0 (Strike!) + (5 + 2)) = 17 points (10 + bonus of 7)..
      */
     public function it_should_calc_with_an_strike_successfully(): void
     {
-        $expectedScore = 26;
+        $expectedScore = 17;
         $score = $this->calculator->calc();
 
         $this->assertEquals($expectedScore, $score);

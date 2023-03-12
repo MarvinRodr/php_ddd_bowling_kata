@@ -26,27 +26,31 @@ final class PlayerScoreFinder
     {
         $playerId = Uuid::fromString($player_id);
 
-        $player =$this->playerRepository->findById($playerId);
+        $player = $this->playerRepository->findById($playerId);
 
         if (is_null($player)) {
             throw new \Exception("Player does not exist.");
         }
 
-        $launches = $this->launchRepository->findByPlayerId($player->id());
-        $launchesCollection = $launches->getCollection()->sortBy(
-            fn (Launch $launch) => $launch->numFrame()->value() // Because of problem with "orderBy" in DoctrineLaunchRepository
-        );
+        $launches = $this->launchRepository->findByPlayerId($player->id())
+            ->getCollection()
+            ->sortBy(
+                fn (Launch $launch) => $launch->numFrame()->value() // Because of problem with "orderBy" in DoctrineLaunchRepository
+            )
+        ;
 
-        if ($launchesCollection->isEmpty()) {
+        if ($launches->isEmpty()) {
             return 0;
         }
 
-        return $launchesCollection->map(
+        return $launches->map(
             function (Launch $launch, int $index) use ($launches): int {
-                if ($launch->isSpare()) {
-                    return (new SpareScoreCalculator($launches, $launch, $index))->calc();
+                if ($launch->isBonusLaunch()) {
+                    return $launch->totalPinsKnocked();
                 } elseif ($launch->isStrike()) {
                     return (new StrikeScoreCalculator($launches, $launch, $index))->calc();
+                } elseif ($launch->isSpare()) {
+                    return (new SpareScoreCalculator($launches, $launch, $index))->calc();
                 } else {
                     return $launch->totalPinsKnocked();
                 }

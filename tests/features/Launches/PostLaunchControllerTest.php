@@ -23,6 +23,7 @@ final class PostLaunchControllerTest extends FeatureTestCase
                         "player_id" => $this->given_a_existing_player(),
                         "first_one" => 4,
                         "second_one" => 3,
+                        "third_one" => 0,
                         "num_frame" => 1
                     ]
                 ]
@@ -47,6 +48,7 @@ final class PostLaunchControllerTest extends FeatureTestCase
                         'player_id' => "F",
                         "first_one" => 4,
                         "second_one"=> 3,
+                        "third_one" => 0,
                         "num_frame"=> null
                     ]
                 ]

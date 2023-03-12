@@ -51,7 +51,8 @@ final class PostLaunchController
                 'id'            => [new Assert\IsNull(), new Assert\Uuid()],
                 'player_id'     => [new Assert\NotBlank(), new Assert\Uuid()],
                 'first_one'     => [new Assert\NotBlank(), new Assert\Type('integer'), new Assert\Range(min:0, max: Launch::getMaxNumPinsCanBeBowled())],
-                'second_one'     => [new Assert\NotBlank(), new Assert\Type('integer'), new Assert\Range(min:0, max: Launch::getMaxNumPinsCanBeBowled())],
+                'second_one'    => [new Assert\NotBlank(), new Assert\Type('integer'), new Assert\Range(min:0, max: Launch::getMaxNumPinsCanBeBowled())],
+                'third_one'     => [new Assert\NotBlank(), new Assert\Type('integer'), new Assert\Range(min:0, max: Launch::getMaxNumPinsCanBeBowled())],
                 'num_frame'     => [new Assert\NotBlank(), new Assert\Type('integer'), new Assert\Range(min:1, max: Launch::getMaxNumOfFrames())],
             ]
         );

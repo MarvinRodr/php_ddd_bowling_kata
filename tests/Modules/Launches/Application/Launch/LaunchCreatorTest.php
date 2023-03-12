@@ -8,6 +8,7 @@ use App\Modules\Launches\Application\Create\LaunchCreator;
 use App\Modules\Launches\Domain\LaunchFirstOne;
 use App\Modules\Launches\Domain\LaunchNumFrame;
 use App\Modules\Launches\Domain\LaunchSecondOne;
+use App\Modules\Launches\Domain\LaunchThirdOne;
 use App\Tests\Modules\Launches\Domain\LaunchMother;
 use App\Tests\Modules\Launches\LaunchModuleUnitTestCase;
 
@@ -31,6 +32,7 @@ final class LaunchCreatorTest extends LaunchModuleUnitTestCase
         $launch = LaunchMother::create(
             first_one: new LaunchFirstOne(4),
             second_one: new LaunchSecondOne(6),
+            third_one: new LaunchThirdOne(0),
             num_frame: new LaunchNumFrame(1)
         );
         $this->playerRepositoryShouldFind($launch->player());
@@ -42,6 +44,7 @@ final class LaunchCreatorTest extends LaunchModuleUnitTestCase
                 $launch->player()->id()->toString(),
                 $launch->firstOne()->value(),
                 $launch->secondOne()->value(),
+                $launch->thirdOne()->value(),
                 $launch->numFrame()->value()
             );
         } catch (\Exception $e) {

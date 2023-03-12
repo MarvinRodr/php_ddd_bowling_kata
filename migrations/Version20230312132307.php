@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20230311135604 extends AbstractMigration
+final class Version20230312132307 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -16,7 +16,7 @@ final class Version20230311135604 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE launches (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', player_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', first_one INT DEFAULT 0 NOT NULL COMMENT \'The number of pins the player has bowled in the first throw\', second_one INT DEFAULT 0 NOT NULL COMMENT \'The number of pins the player has bowled in the second throw\', num_frame INT NOT NULL COMMENT \'The number of frame\', INDEX IDX_C9B058399E6F5DF (player_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE launches (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', player_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', first_one INT DEFAULT 0 NOT NULL COMMENT \'The number of pins the player has bowled in the first throw\', second_one INT DEFAULT 0 NOT NULL COMMENT \'The number of pins the player has bowled in the second throw\', third_one INT DEFAULT 0 NOT NULL COMMENT \'The number of pins the player has bowled in the third throw\', num_frame INT NOT NULL COMMENT \'The number of frame\', INDEX IDX_C9B058399E6F5DF (player_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE players (id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL, available_at DATETIME NOT NULL, delivered_at DATETIME DEFAULT NULL, INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE launches ADD CONSTRAINT FK_C9B058399E6F5DF FOREIGN KEY (player_id) REFERENCES players (id)');

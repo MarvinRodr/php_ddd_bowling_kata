@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace App\Modules\Launches\Application\Calc;
 
-use App\Modules\Launches\Domain\Launch;
-use App\Modules\Launches\Domain\Launches;
-
-final class SpareScoreCalculator
+final class SpareScoreCalculator extends ScoreCalculator
 {
-    public function __construct(
-        private readonly Launches $launches,
-        private readonly Launch $currentLaunch,
-        private readonly int $index
-    ) {
-    }
-
     public function calc(): int
     {
         // Get the next launch
-        $nextLaunch = $this->launches->getCollection()->get($this->index + 1);
+        $nextLaunch = $this->launches->get($this->index + 1);
 
         // If it isn`t outside the range of the array of Launches
-        if ($nextLaunch instanceof Launch) {
-            return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->totalPinsKnocked();
+        if ($this->isLaunch($nextLaunch)) {
+            return $this->currentLaunch->totalPinsKnocked() + $nextLaunch->firstOne()->value();
         }
 
         return $this->currentLaunch->totalPinsKnocked();

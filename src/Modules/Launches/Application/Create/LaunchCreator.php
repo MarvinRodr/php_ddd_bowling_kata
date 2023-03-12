@@ -10,6 +10,7 @@ use App\Modules\Launches\Domain\LaunchFirstOne;
 use App\Modules\Launches\Domain\LaunchNumFrame;
 use App\Modules\Launches\Domain\LaunchRepository;
 use App\Modules\Launches\Domain\LaunchSecondOne;
+use App\Modules\Launches\Domain\LaunchThirdOne;
 use App\Modules\Players\Domain\PlayerRepository;
 use Ramsey\Uuid\Uuid;
 
@@ -24,7 +25,7 @@ final class LaunchCreator
     /**
      * @throws \Exception
      */
-    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $num_frame): LaunchResponse
+    public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $third_one, int $num_frame): LaunchResponse
     {
         $launchId = is_null($id) ? Uuid::uuid1() : Uuid::fromString($id);
         $playerId = is_null($player_id) ? Uuid::uuid1() : Uuid::fromString($player_id);
@@ -41,6 +42,7 @@ final class LaunchCreator
             player: $player,
             first_one: new LaunchFirstOne($first_one),
             second_one: new LaunchSecondOne($second_one),
+            third_one: new LaunchThirdOne($third_one),
             num_frame: new LaunchNumFrame($num_frame)
         );
 
