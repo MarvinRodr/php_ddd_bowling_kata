@@ -12,4 +12,9 @@ abstract class StringValueObject
     {
         return $this->value;
     }
+
+    protected function isBlank(): bool
+    {
+        return trim($this->value()) === '';
+    }
 }

@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller\API\Players;
 
-use App\Modules\Players\Application\Create\PlayerCreator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
+
+use App\Modules\Players\Application\Create\PlayerCreator;
+use App\Modules\Players\Application\Exceptions\PlayerAlreadyExistsHttpException;
+use App\Shared\Domain\Application\ExceptionResponses\ExceptionResponse;
+use App\Shared\Domain\Application\ExceptionResponses\HttpExceptionResponse;
+use Exception;
 
 final class PostPlayerController
 {
@@ -24,16 +29,19 @@ final class PostPlayerController
         $errors = $this->validateRequest($requestData);
 
         if ($errors->count() > 0) {
-            // TODO: handle errors.
             return new JsonResponse(
-                [
-                    "message" => $errors->get(0)->getMessage()
-                ],
+                (new ExceptionResponse(new Exception($errors->get(0)->getMessage())))->toArray(),
                 Response::HTTP_BAD_REQUEST
             );
         }
 
-        $playerResponse = $this->creator->create(...array_values($requestData));
+        try {
+            $playerResponse = $this->creator->create(...array_values($requestData));
+        } catch (PlayerAlreadyExistsHttpException $e) {
+            return new JsonResponse((new HttpExceptionResponse($e))->toArray(), $e->getStatusCode());
+        } catch (Exception $e) {
+            return new JsonResponse((new ExceptionResponse($e))->toArray(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         return new JsonResponse($playerResponse->toArray(), status: Response::HTTP_CREATED);
     }

@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace App\Controller\API\Launch;
 
-use App\Modules\Launches\Application\Create\LaunchCreator;
-use App\Modules\Launches\Domain\Launch;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
+
+use App\Modules\Launches\Application\Create\LaunchCreator;
+use App\Modules\Launches\Domain\Launch;
+use App\Modules\Players\Application\Exceptions\PlayerNotFoundHttpException;
+use App\Modules\Launches\Domain\Exceptions\InvalidArgumentBonusLaunchException;
+use App\Modules\Launches\Domain\Exceptions\InvalidArgumentNormalLaunchException;
+use App\Shared\Domain\Application\ExceptionResponses\ExceptionResponse;
+use App\Shared\Domain\Application\ExceptionResponses\HttpExceptionResponse;
+use App\Shared\Domain\Application\ExceptionResponses\InvalidArgumentExceptionResponse;
+use Exception;
 
 final class PostLaunchController
 {
@@ -25,20 +33,20 @@ final class PostLaunchController
         $errors = $this->validateRequest($requestData);
 
         if ($errors->count() > 0) {
-            // TODO: handle errors.
             return new JsonResponse(
-                [
-                    "message" => $errors->get(0)->getMessage()
-                ],
+                (new ExceptionResponse(new Exception($errors->get(0)->getMessage())))->toArray(),
                 Response::HTTP_BAD_REQUEST
             );
         }
 
         try {
             $launchResponse = $this->creator->create(...array_values($requestData));
-        } catch (\Exception $e) {
-            // TODO: handle custom errors.
-            return new JsonResponse($e->getMessage(), Response::HTTP_CONFLICT);
+        } catch (PlayerNotFoundHttpException $e) {
+            return new JsonResponse((new HttpExceptionResponse($e))->toArray(), $e->getStatusCode());
+        } catch (InvalidArgumentNormalLaunchException|InvalidArgumentBonusLaunchException $e) {
+            return new JsonResponse((new InvalidArgumentExceptionResponse($e))->toArray(), $e->getCode());
+        } catch (Exception $e) {
+            return new JsonResponse((new ExceptionResponse($e))->toArray(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return new JsonResponse($launchResponse->toArray(), Response::HTTP_CREATED);
