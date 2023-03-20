@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Modules\Launches\Domain;
 
+use App\Modules\Launches\Domain\Exceptions\InvalidArgumentBonusLaunchException;
+use App\Modules\Launches\Domain\Exceptions\InvalidArgumentNormalLaunchException;
 use App\Modules\Players\Domain\Player;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use Ramsey\Uuid\UuidInterface;
@@ -21,13 +23,7 @@ class Launch extends AggregateRoot
         private readonly LaunchThirdOne $third_one,
         private readonly LaunchNumFrame $num_frame
     ) {
-        if (
-            ($this->isBonusLaunch() && !$this->isValidBonusLaunch())
-            || (!$this->isBonusLaunch() && !$this->isValidLaunch())
-        ) {
-            // TODO: custom exceptions.
-            throw new \DomainException();
-        }
+        $this->ensureIsValidLaunch();
     }
 
     public static function create(
@@ -117,5 +113,25 @@ class Launch extends AggregateRoot
     public static function getMaxNumOfFrames(): int
     {
         return self::MAX_NUM_OF_FRAMES;
+    }
+
+    private function ensureIsValidLaunch(): void
+    {
+        $this->validateBonusLaunch();
+        $this->validateLaunch();
+    }
+
+    private function validateBonusLaunch(): void
+    {
+        if (($this->isBonusLaunch() && !$this->isValidBonusLaunch())) {
+            throw new InvalidArgumentBonusLaunchException($this->numFrame(), $this->totalPinsKnocked());
+        }
+    }
+
+    private function validateLaunch(): void
+    {
+        if (!$this->isBonusLaunch() && !$this->isValidLaunch()) {
+            throw new InvalidArgumentNormalLaunchException($this->numFrame(), $this->totalPinsKnocked());
+        }
     }
 }

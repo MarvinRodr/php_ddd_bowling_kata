@@ -126,13 +126,7 @@ class Launch extends AggregateRoot
         private readonly LaunchThirdOne $third_one,
         private readonly LaunchNumFrame $num_frame
     ) {
-        if (
-            ($this->isBonusLaunch() && !$this->isValidBonusLaunch())
-            || (!$this->isBonusLaunch() && !$this->isValidLaunch())
-        ) {
-            // TODO: custom exceptions.
-            throw new \DomainException();
-        }
+        $this->ensureIsValidLaunch();
     }
 }
 ```

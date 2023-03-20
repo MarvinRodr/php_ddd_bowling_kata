@@ -8,7 +8,7 @@ use App\Modules\Players\Domain\Player;
 use App\Modules\Players\Domain\PlayerName;
 use Ramsey\Uuid\UuidInterface;
 
-final class PlayerMother
+class PlayerMother
 {
     public static function create(
         ?UuidInterface $id = null,

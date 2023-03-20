@@ -8,6 +8,7 @@ use App\Modules\Launches\Application\Calc\SpareScoreCalculator;
 use App\Modules\Launches\Application\Calc\StrikeScoreCalculator;
 use App\Modules\Launches\Domain\Launch;
 use App\Modules\Launches\Domain\LaunchRepository;
+use App\Modules\Players\Application\Exceptions\PlayerNotFoundHttpException;
 use App\Modules\Players\Domain\PlayerRepository;
 use Ramsey\Uuid\Uuid;
 
@@ -20,7 +21,7 @@ final class PlayerScoreFinder
     }
 
     /**
-     * @throws \Exception
+     * @throws PlayerNotFoundHttpException
      */
     public function find(string $player_id): int
     {
@@ -29,15 +30,10 @@ final class PlayerScoreFinder
         $player = $this->playerRepository->findById($playerId);
 
         if (is_null($player)) {
-            throw new \Exception("Player does not exist.");
+            throw new PlayerNotFoundHttpException($playerId);
         }
 
-        $launches = $this->launchRepository->findByPlayerId($player->id())
-            ->getCollection()
-            ->sortBy(
-                fn (Launch $launch) => $launch->numFrame()->value() // Because of problem with "orderBy" in DoctrineLaunchRepository
-            )
-        ;
+        $launches = $this->launchRepository->findByPlayerId($player->id())->getCollection();
 
         if ($launches->isEmpty()) {
             return 0;

@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controller\API\Players;
 
-use App\Modules\Players\Application\PlayerScoreResponse;
-use App\Modules\Players\Application\Score\PlayerScoreFinder;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+
+use App\Modules\Players\Application\PlayerScoreResponse;
+use App\Modules\Players\Application\Score\PlayerScoreFinder;
+use App\Modules\Players\Application\Exceptions\PlayerNotFoundHttpException;
+use App\Shared\Domain\Application\ExceptionResponses\ExceptionResponse;
+use App\Shared\Domain\Application\ExceptionResponses\HttpExceptionResponse;
+use Exception;
 
 final class GetPlayerScoreController
 {
@@ -19,23 +24,18 @@ final class GetPlayerScoreController
     public function __invoke(string $player_id): JsonResponse
     {
         if (!$this->validateRequest($player_id)) {
-            // TODO: handle errors.
             return new JsonResponse(
-                [
-                    "message" => "Invalid ID provided."
-                ],
+                (new ExceptionResponse(new Exception("Invalid ID provided.")))->toArray(),
                 Response::HTTP_BAD_REQUEST
             );
         }
 
         try {
             $score = $this->finder->find($player_id);
-        } catch (\Exception $e) {
-            // TODO: handle custom errors.
-            return new JsonResponse(
-                $e->getMessage(),
-                status: Response::HTTP_CONFLICT
-            );
+        } catch (PlayerNotFoundHttpException $e) {
+            return new JsonResponse((new HttpExceptionResponse($e))->toArray(), $e->getStatusCode());
+        } catch (Exception $e) {
+            return new JsonResponse((new ExceptionResponse($e))->toArray(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return new JsonResponse(

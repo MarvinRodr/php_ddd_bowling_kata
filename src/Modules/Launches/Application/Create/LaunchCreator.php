@@ -11,6 +11,7 @@ use App\Modules\Launches\Domain\LaunchNumFrame;
 use App\Modules\Launches\Domain\LaunchRepository;
 use App\Modules\Launches\Domain\LaunchSecondOne;
 use App\Modules\Launches\Domain\LaunchThirdOne;
+use App\Modules\Players\Application\Exceptions\PlayerNotFoundHttpException;
 use App\Modules\Players\Domain\PlayerRepository;
 use Ramsey\Uuid\Uuid;
 
@@ -23,7 +24,7 @@ final class LaunchCreator
     }
 
     /**
-     * @throws \Exception
+     * @throws PlayerNotFoundHttpException
      */
     public function create(?string $id, ?string $player_id, int $first_one, int $second_one, int $third_one, int $num_frame): LaunchResponse
     {
@@ -33,8 +34,7 @@ final class LaunchCreator
         $player = $this->playerRepository->findById($playerId);
 
         if (is_null($player)) {
-            // TODO: Custom Exceptions.
-            throw new \Exception("Player does not exist.");
+            throw new PlayerNotFoundHttpException($playerId);
         }
 
         $launch = new Launch(

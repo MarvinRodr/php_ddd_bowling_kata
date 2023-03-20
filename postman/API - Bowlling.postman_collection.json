@@ -78,6 +78,210 @@
 					]
 				},
 				{
+					"name": "Launch Conflict Player Does Not Exist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id_not_exist}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 0,\r\n    \"third_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/launch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"launch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Launch 409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id_not_exist}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 0,\r\n    \"third_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player/launch",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"launch"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"The player ID <9809905c-bf7c-11ed-a136-0242ac180001> does not exist in the database\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Normal Launch Bad Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 11,\r\n    \"third_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/launch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"launch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Launch 400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 11,\r\n    \"third_one\": 0,\r\n    \"num_frame\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player/launch",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"launch"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"This value should be between 0 and 10.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Bonus Launch Bad Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 10,\r\n    \"third_one\": 10,\r\n    \"num_frame\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/player/launch",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"launch"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Launch 400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": null,\r\n    \"player_id\": \"{{player_id}}\",\r\n    \"first_one\": 10,\r\n    \"second_one\": 10,\r\n    \"third_one\": 10,\r\n    \"num_frame\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/player/launch",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"launch"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Normal launch not valid, number of frames <1> or total pins knocked down <30> is not valid\"\n}"
+						}
+					]
+				},
+				{
 					"name": "Bonus Launch",
 					"request": {
 						"method": "POST",
@@ -264,6 +468,58 @@
 							],
 							"cookie": [],
 							"body": "{\r\n    \"player_id\": \"9809905c-bf7c-11ed-a136-0242ac180003\",\r\n    \"total_score\": 45\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Score Conflict Player Does not exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/player/{{player_id_not_exist}}/score",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"player",
+								"{{player_id_not_exist}}",
+								"score"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Score",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/player/{{player_id_not_exist}}/score",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"player",
+										"{{player_id_not_exist}}",
+										"score"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"message\": \"The player ID <9809905c-bf7c-11ed-a136-0242ac180001> does not exist in the database\"\r\n}"
 						}
 					]
 				}

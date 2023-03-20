@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Modules\Players\Domain;
 
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\ValueObject\Uuid;
+use Ramsey\Uuid\Uuid as RamseyUuid;
 use Ramsey\Uuid\UuidInterface;
 
 class Player extends AggregateRoot
