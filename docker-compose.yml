@@ -1,11 +1,11 @@
 version: '3.9'
 
 networks:
-  bowling_kata_pop_network:
+  bowling_kata_network:
 
 services:
   mysql:
-    container_name: bowling_kata_pop-mysql
+    container_name: bowling_kata-mysql
     image: mariadb:10.7.4
     ports:
       - "3360:3306"
@@ -19,10 +19,10 @@ services:
       retries: 10
     command: ["--default-authentication-plugin=mysql_native_password"]
     networks:
-      - bowling_kata_pop_network
+      - bowling_kata_network
 
   backend_php:
-    container_name: bowling_kata_pop-backend_php
+    container_name: bowling_kata-backend_php
     user: "${UID}:${GID}"
     build:
       context: .
@@ -34,5 +34,5 @@ services:
       - .:/app:delegated
     command: symfony serve --port=8040
     networks:
-      - bowling_kata_pop_network
+      - bowling_kata_network
 

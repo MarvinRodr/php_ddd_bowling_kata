@@ -1,72 +1,170 @@
-# Yupop Backend Tech Test
+# :bowling: BOWLING KATA SOLUTION! :bowling:
 
-Hello candidate!!
+### Steps to run the project
 
-Welcome to Yupop and its backend technical test
+1. ```make build```
+2. Open your browser: [localhost](http://localhost:8040/).
+3. Run tests: ```make test```
+4. If necessary feel free to use the [Makefile](Makefile).
+5. Feel free to try postman [collection](postman/API%20-%20Bowlling.postman_collection.json) and [environment](postman/bowlling_kaya_pop.postman_environment.json) 
+6. [Read the CHALLENGE!](CHALLENGE.md)
 
 
-## Bowling Game Kata
-
-Credits: Inspired by Uncle Bob
-
-### Bowling Rules
+:door: Controllers
 ---
+```sh
+src/Controller/
+├── API
+│   ├── HealthCheck
+│   │   └── GetHealthCheckController.php
+│   ├── Launch
+│   │   └── PostLaunchController.php
+│   └── Players
+│       ├── GetPlayerScoreController.php
+│       └── PostPlayerController.php
+└── WEB
+    └── Home
+        └── GetHomeController.php
+```
 
-The game consists of 10 frames. In each frame the player has two rolls to knock down 10 pins. The score for the frame is the total number of pins knocked down, plus bonuses for strikes and spares.
-
-A spare is when the player knocks down all 10 pins in two rolls. The bonus for that frame is the number of pins knocked down by the next roll.
-
-A strike is when the player knocks down all 10 pins on his first roll. The frame is then completed with a single roll. The bonus for that frame is the value of the next two rolls.
-
-In the tenth frame a player who rolls a spare or strike is allowed to roll the extra balls to complete the frame. However no more than three balls can be rolled in tenth frame.
-
-### Requirements
+:railway_car: Modules
 ---
+```sh
+src/Modules/
+├── Launches
+│   ├── Application
+│   │   ├── Calc
+│   │   └── Create
+│   ├── Domain
+│   └── Infrastructure
+│       └── Persistence
+│           └── Doctrine
+└── Players
+    ├── Application
+    │   ├── Create
+    │   └── Score
+    ├── Domain
+    └── Infrastructure
+        └── Persistence
+            └── Doctrine
+```
 
-Write a web (simply HTML) or cli application using Symfony to simulate the game.
-
-The application may ask for the number of pins knocked down. And it may control automatic the frames, and after ech frame show the score
-
-The application may save the points  on a database or a CSV file depending the configuration
-
-The code may has test for the main features.
-
-### Bonus points
+:hammer: Use Cases
 ---
-Control more than one player
+### Players
+```sh
+src/Modules/Players/Application/
+├── Create
+│   └── PlayerCreator.php
+├── PlayerResponse.php
+├── PlayerScoreResponse.php
+└── Score
+    └── PlayerScoreFinder.php
+```
+### Launches
+```sh
+src/Modules/Launches/Application/
+├── Calc
+│   ├── SpareScoreCalculator.php
+│   └── StrikeScoreCalculator.php
+├── Create
+│   └── LaunchCreator.php
+└── LaunchResponse.php
+```
 
-If is a web app use React or similar
-
-
-## Your solution
+Shared
 ---
+```sh
+src/Shared/
+├── Domain
+│   ├── Aggregate
+│   │   └── AggregateRoot.php
+│   ├── Assert.php
+│   ├── Collection.php
+│   ├── RandomNumberGenerator.php
+│   ├── Response.php
+│   ├── Utils.php
+│   ├── UuidGenerator.php
+│   └── ValueObject
+│       ├── IntValueObject.php
+│       ├── StringValueObject.php
+│       └── Uuid.php
+└── Infrastructure
+├── Persistence
+│   └── Doctrine
+│       └── DoctrineRepository.php
+├── PhpRandomNumberGenerator.php
+└── RamseyUuidGenerator.php
+```
 
-### Must (These points are mandatory)
+Launches feature
+---
+```sh
+src/Modules/Launches/Domain
+├── Launch.php
+├── LaunchFirstOne.php
+├── LaunchNumFrame.php
+├── LaunchRepository.php
+├── LaunchSecondOne.php
+├── LaunchThirdOne.php
+└── Launches.php
+```
+As we can see we have the 2 possible launches in the Launch Model. 
 
-- Use Symfony or Laravel
-- Be testable. This means that we should not need to run the main app in order to check that everything is working.
-- Have a SOLUTION.md containing all the relevant features of your provided solution.
+This allows us to control the behaviour of each launch box. Defining the requirements of this within the domain of Launch.
 
-### Should (Nice to have)
+```php
+class Launch extends AggregateRoot
+{
+    private const MAX_NUM_PINS_CAN_BE_BOWLED = 10;
+    private const MAX_NUM_OF_FRAMES = 10;
 
-- Fulfill the [Bonus point](#bonus-point) section of this readme.
-- Be bug free.
-- Use any design patterns you know and feel that help solve this problem.
-- Be extensible to allow the introduction of new features in an easy way.
-- Use any package dependency mechanism.
+    public function __construct(
+        private readonly UuidInterface $id,
+        private readonly Player $player,
+        private readonly LaunchFirstOne $first_one,
+        private readonly LaunchSecondOne $second_one,
+        private readonly LaunchThirdOne $third_one,
+        private readonly LaunchNumFrame $num_frame
+    ) {
+        $this->ensureIsValidLaunch();
+    }
+}
+```
+### Score Calculation
+As for the calculation of Strikes and Spares, they are calculated in the [launches](#launches) application layer.
+They are divided into two different use cases, to improve scalability and single responsibility.
 
-## Our evaluation
+- [SpareScoreCalculator.php](src/Modules/Launches/Application/Calc/SpareScoreCalculator.php)
+- [StrikeScoreCalculator.php](src/Modules/Launches/Application/Calc/StrikeScoreCalculator.php)
+```sh
+src/Modules/Launches/Application/Calc/
+├── SpareScoreCalculator.php
+└── StrikeScoreCalculator.php
+```
 
-- We will focus on your design and on your own code over the usage of frameworks and libraries
-- We will also take into account the evolution of your solution, not just the delivered code
-- We will evolve your solution with feasible features and evaluate how complex it is to implement them
+Frontend Solution Using VUE
+---
+Components
+```sh
+assets/components/
+├── BowlingLane.vue
+└── Players
+    └── CreatePlayerFormModal.vue
+```
 
-## How to do it
+Pages
+```sh
+assets/pages/
+└── home
+    └── Home.vue
+```
 
-This project is a [Template Project](https://help.github.com/en/articles/creating-a-repository-from-a-template) that allows you to create a new project of your own based on this one
 
-We would like you to maintain this new repository as private, and give access to `wallabackend` to evaluate it once you are done with your solution
 
-Please, let us know as soon as you finish, otherwise we will not start the review
 
-Thanks & good luck!!
+
+
+
+
+
